@@ -816,7 +816,7 @@ img{
         grid-column: 1 / 3;   /* Span both columns */
         justify-self: center; /* Center the card */
         
-        max-width: 50%;     /* Adjust as desired */
+            /* Adjust as desired */
     }
 
     .stat-card{
@@ -834,7 +834,7 @@ img{
     .about-stats .stat-card:last-child{
         grid-column: auto;
         justify-self: stretch;
-        max-width: 50%;
+        
     }
 }
 

@@ -1,6 +1,32 @@
 const carouselContainer = document.getElementById("carouselImages");
 let galleryImages = [];
 const track = document.getElementById("galleryTrack");
+const testimonials = [
+    {
+        name: "Sarah Khan",
+        country: "MBBS Student, Uzbekistan",
+        image: "images/student1.png",
+        rating: 5,
+        review: "The entire admission process was smooth and transparent."
+    },
+    {
+        name: "Ahmed Ali",
+        country: "Medical Student, Kazakhstan",
+        image: "images/student2.png",
+        rating: 4,
+        review: "The team guided me from counseling to visa approval."
+    },
+    {
+        name: "Priya Sharma",
+        country: "MBBS Student, Kyrgyzstan",
+        image: "images/student3.png",
+        rating: 3,
+        review: "They helped me achieve my dream of studying abroad."
+    }
+];
+
+
+
 async function loadCarouselImages() {
     const response = await fetch("/api/carousel_images");
     const images = await response.json();
@@ -52,103 +78,13 @@ async function loadGalleryImages() {
             </div>
         `;
     });
-    moveCarousel();
+   galleryCarousel.move();
 
 }
 
 loadGalleryImages();
 
-let currentIndex = 0;
 
-function getVisibleItems() {
-    if (window.innerWidth <= 768) return 1;
-    if (window.innerWidth <= 992) return 2;
-    return 3;
-}
-
-function moveCarousel() {
-    const firstItem = document.querySelector(".gallery-item");
-    if (!firstItem) return;
-
-    const visibleItems = getVisibleItems();
-    const itemWidth = firstItem.offsetWidth;
-
-    track.style.transform =
-        `translateX(-${currentIndex * itemWidth}px)`;
-
-    const maxIndex = Math.max(0, galleryImages.length - visibleItems);
-
-    if (currentIndex > maxIndex) {
-        currentIndex = maxIndex;
-    }
-}
-
-document.querySelector(".next-btn")
-.addEventListener("click", () => {
-
-    const visibleItems = getVisibleItems();
-
-    if(currentIndex < galleryImages.length - visibleItems){
-        currentIndex++;
-        moveCarousel();
-    }
-});
-
-document.querySelector(".prev-btn")
-.addEventListener("click", () => {
-
-    if(currentIndex > 0){
-        currentIndex--;
-        moveCarousel();
-    }
-});
-
-window.addEventListener("resize", moveCarousel);
-
-
-
-
-
-
-setInterval(() => {
-
-    const visibleItems = getVisibleItems();
-
-    if(currentIndex >= galleryImages.length - visibleItems){
-        currentIndex = 0;
-    }else{
-        currentIndex++;
-    }
-
-    moveCarousel();
-
-}, 3000);
-
-
-
-const testimonials = [
-    {
-        name: "Sarah Khan",
-        country: "MBBS Student, Uzbekistan",
-        image: "images/student1.png",
-        rating: 5,
-        review: "The entire admission process was smooth and transparent."
-    },
-    {
-        name: "Ahmed Ali",
-        country: "Medical Student, Kazakhstan",
-        image: "images/student2.png",
-        rating: 4,
-        review: "The team guided me from counseling to visa approval."
-    },
-    {
-        name: "Priya Sharma",
-        country: "MBBS Student, Kyrgyzstan",
-        image: "images/student3.png",
-        rating: 3,
-        review: "They helped me achieve my dream of studying abroad."
-    }
-];
 
 const testimonialTrack =
     document.getElementById("testimonialTrack");
@@ -180,5 +116,134 @@ function renderTestimonials() {
     });
 
     testimonialTrack.innerHTML = html;
+    testimonialCarousel.move();
 }
 
+
+
+
+
+
+
+
+function createCarousel(options) {
+
+    const {
+        track,
+        prevBtn,
+        nextBtn,
+        itemSelector,
+        totalItems,
+        autoSlide = false,
+        interval = 3000
+    } = options;
+
+    let currentIndex = 0;
+
+    function getVisibleItems() {
+        if (window.innerWidth < 768) return 1;
+        if (window.innerWidth < 992) return 2;
+        return 3;
+    }
+
+    function move() {
+
+        const items = track.querySelectorAll(itemSelector);
+
+        if (!items.length) return;
+
+        const itemWidth = items[0].offsetWidth;
+
+        const maxIndex = Math.max(
+            0,
+            totalItems() - getVisibleItems()
+        );
+
+        if (currentIndex > maxIndex)
+            currentIndex = maxIndex;
+
+        track.style.transform =
+            `translateX(-${currentIndex * itemWidth}px)`;
+    }
+
+    nextBtn.addEventListener("click", () => {
+
+        if (currentIndex < totalItems() - getVisibleItems()) {
+            currentIndex++;
+        } else {
+            currentIndex = 0;
+        }
+
+        move();
+    });
+
+    prevBtn.addEventListener("click", () => {
+
+        if (currentIndex > 0) {
+            currentIndex--;
+        } else {
+            currentIndex =
+                Math.max(0, totalItems() - getVisibleItems());
+        }
+
+        move();
+    });
+
+    window.addEventListener("resize", move);
+
+    if (autoSlide) {
+
+        setInterval(() => {
+
+            if (currentIndex >= totalItems() - getVisibleItems()) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+
+            move();
+
+        }, interval);
+    }
+
+    return {
+        move
+    };
+}
+
+const galleryCarousel = createCarousel({
+
+    track: document.getElementById("galleryTrack"),
+
+    prevBtn: document.querySelector(".prev-btn"),
+
+    nextBtn: document.querySelector(".next-btn"),
+
+    itemSelector: ".gallery-item",
+
+    totalItems: () => galleryImages.length,
+
+    autoSlide: true,
+
+    interval: 3000
+
+});
+galleryCarousel.move();
+
+const testimonialCarousel = createCarousel({
+
+    track: document.getElementById("testimonialTrack"),
+
+    prevBtn: document.querySelector(".prev-testimonial"),
+
+    nextBtn: document.querySelector(".next-testimonial"),
+
+    itemSelector: ".testimonial-slide",
+
+    totalItems: () => testimonials.length,
+
+    autoSlide: true,
+
+    interval: 5000
+
+});
