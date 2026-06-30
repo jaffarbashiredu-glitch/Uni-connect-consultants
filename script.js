@@ -247,3 +247,36 @@ const testimonialCarousel = createCarousel({
     interval: 5000
 
 });
+
+
+
+document.querySelectorAll("[data-scroll]").forEach(link => {
+
+    link.addEventListener("click", function () {
+
+        const target = this.dataset.scroll;
+
+        if (target === "top") {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+            return;
+        }
+
+        const section = document.getElementById(target);
+
+        if (section) {
+
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+
+    });
+
+});
