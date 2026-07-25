@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-
+const universities = require("./data/universities_list.json");
 const app = express();
 
 // Serve current folder
@@ -83,9 +83,57 @@ app.get("/api/testimonial_images", (req,res) => {
     })
 })
 
+
+// Get unique list of countries
+app.get("/api/countries", (req, res) => {
+    const countries = [...new Set(universities.map(u => u.country))].sort();
+    res.json(countries);
+});
+
+// Get all universities, with optional ?country= filter
+app.get("/api/universities", (req, res) => {
+    const { country } = req.query;
+    if (country) {
+        const filtered = universities.filter(
+            u => u.country.toLowerCase() === country.toLowerCase()
+        );
+        return res.json(filtered);
+    }
+    res.json(universities);
+});
+
+// Get university by id
+
+app.get("/api/universities/:id", (req, res) => {
+
+    const id = Number(req.params.id);
+
+    const university = universities.find(
+        university => university.id === id
+    );
+
+    if (!university) {
+        return res.status(404).json({
+            message: "University not found"
+        });
+    }
+
+    res.json(university);
+
+});
+
 app.use((req, res) => {
     res.status(404).send("Page not found");
 });
+
+
+
+
+
+
+
+
+
 
 
 

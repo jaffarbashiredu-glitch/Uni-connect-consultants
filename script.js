@@ -18,7 +18,7 @@ const testimonials = [
     },
     {
         name: "Priya Sharma",
-        country: "MBBS Student, Kyrgyzstan",
+        country: "MBBS Student, Russia",
         image: "images/student3.png",
         rating: 3,
         review: "They helped me achieve my dream of studying abroad."
@@ -280,3 +280,164 @@ document.querySelectorAll("[data-scroll]").forEach(link => {
     });
 
 });
+
+// ── Study Destinations ──────────────────────────────────────────
+
+const countryFlags = {
+    "India":       "./images/countries_icon/india_icon.png",
+    "Uzbekistan":  "./images/countries_icon/uzbekistan_icon.png",
+    "Russia":      "./images/countries_icon/russia_icon.png",
+    "Kazakhstan":  "./images/countries_icon/kazakhistan_icon.png",
+    "Georgia":     "./images/countries_icon/georgia_icon.png",
+};
+
+const countryTaglines = {
+    "India":       "Top-ranked universities at home",
+    "Uzbekistan":  "Affordable & WHO-recognised",
+    "Russia":      "World-class research universities",
+    "Kazakhstan":  "Modern campuses in Central Asia",
+    "Georgia":     "European standards of education",
+};
+
+let allUniversities = [];
+let currentCountry  = null;
+
+const countriesGrid     = document.getElementById("countriesGrid");
+const universitiesView  = document.getElementById("universitiesView");
+const universitiesGrid  = document.getElementById("universitiesGrid");
+const selectedCountryTitle = document.getElementById("selectedCountryTitle");
+const backBtn           = document.getElementById("backToCountriesBtn");
+const searchInput       = document.getElementById("universitySearchInput");
+const searchClearBtn    = document.getElementById("searchClearBtn");
+const noResultsMsg      = document.getElementById("noResultsMsg");
+
+function renderCountryCard(country, count) {
+    console.log("country flag",country)
+    return `
+        <div class="country-card" data-country="${country}">
+            <div class="country-flag"><img src="${countryFlags[country]}" alt="${country} flag" onerror="this.replaceWith('\uD83C\uDF0D')"></div>
+            <h4 class="country-name">${country}</h4>
+            <p class="country-tagline">${countryTaglines[country] || ""}</p>
+            <span class="country-uni-count">${count} ${count === 1 ? "University" : "Universities"}</span>
+            <div class="country-card-arrow"><i class="bi bi-arrow-right-circle-fill"></i></div>
+        </div>
+    `;
+}
+
+function renderUniversityCard(u) {
+    console.log("u",u)
+    return `
+        <div class="university-card">
+            <div class="university-card-body">
+                <h4 class="uni-name">${u.name}</h4>
+                <p class="university-location">
+                    <i class="bi bi-geo-alt-fill"></i> ${u.city}, ${u.country}
+                </p>
+                <p class="university-desc">${u.description}</p>
+                <div class="university-card-footer">
+                    <span class="uni-type-badge ${u.type === "Government" ? "govt" : "pvt"}">${u.type}</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function showCountriesView() {
+    currentCountry = null;
+    universitiesView.style.display = "none";
+    countriesGrid.style.display    = "grid";
+    searchInput.value              = "";
+    searchClearBtn.style.display   = "none";
+    noResultsMsg.style.display     = "none";
+}
+
+function showUniversitiesForCountry(country) {
+
+    console.log("country",country,allUniversities)
+    currentCountry = country;
+    const filtered = allUniversities.filter(u => u.country === country);
+    console.log("filtered",filtered)
+    selectedCountryTitle.innerHTML = `${countryFlags[country] ? `<img src="${countryFlags[country]}" alt="${country} flag" style="height:1.2em;vertical-align:middle;margin-right:6px;">` : ""} ${country}`;
+    countriesGrid.style.display    = "none";
+    universitiesView.style.display = "block";
+    searchInput.value              = "";
+    searchClearBtn.style.display   = "none";
+    renderUniversityList(filtered);
+    document.getElementById("study-destinations").scrollIntoView({ behavior: "smooth", block: "end" });
+}
+
+function renderUniversityList(list) {
+    console.log("list of countrues",list)
+    if (list.length === 0) {
+        universitiesGrid.innerHTML = "";
+        noResultsMsg.style.display = "block";
+    } else {
+        noResultsMsg.style.display = "none";
+        universitiesGrid.innerHTML = list.map(renderUniversityCard).join("");
+    }
+}
+
+function handleSearch(query) {
+    const q = query.trim().toLowerCase();
+    searchClearBtn.style.display = q ? "flex" : "none";
+
+    if (!q) {
+        if (currentCountry) {
+            showUniversitiesForCountry(currentCountry);
+        } else {
+            showCountriesView();
+        }
+        return;
+    }
+
+    const results = allUniversities.filter(u =>
+        u.name.toLowerCase().includes(q) ||
+        u.city.toLowerCase().includes(q) ||
+        u.country.toLowerCase().includes(q)
+    );
+
+    countriesGrid.style.display    = "none";
+    universitiesView.style.display = "block";
+    selectedCountryTitle.innerHTML = `Search results for "<em>${query}</em>"`;
+    renderUniversityList(results);
+}
+
+async function initStudyDestinations() {
+    const res = await fetch("/api/universities");
+    allUniversities = await res.json();
+
+    const countryCounts = allUniversities.reduce((acc, u) => {
+        acc[u.country] = (acc[u.country] || 0) + 1;
+        return acc;
+    }, {});
+
+    countriesGrid.innerHTML = Object.entries(countryCounts)
+        .sort(([a], [b]) => {
+            if (a === "India") return -1;
+            if (b === "India") return 1;
+            return a.localeCompare(b);
+        })
+        .map(([country, count]) => renderCountryCard(country, count))
+        .join("");
+
+    countriesGrid.addEventListener("click", e => {
+        const card = e.target.closest(".country-card");
+        if (card) showUniversitiesForCountry(card.dataset.country);
+    });
+
+    backBtn.addEventListener("click", showCountriesView);
+
+    searchInput.addEventListener("input", e => handleSearch(e.target.value));
+
+    searchClearBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        searchClearBtn.style.display = "none";
+        if (currentCountry) {
+            showUniversitiesForCountry(currentCountry);
+        } else {
+            showCountriesView();
+        }
+    });
+}
+
+initStudyDestinations();

@@ -875,3 +875,442 @@ img{
         font-size:18px;
     }
 }
+
+/* ── Universities Section ── */
+.universities-section {
+    background: var(--light-grey);
+    padding: 60px 0;
+}
+
+.universities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 28px;
+}
+
+.university-card {
+    background: var(--white-color);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.09);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.university-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.14);
+}
+
+.university-card-image {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.university-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.university-card:hover .university-card-image img {
+    transform: scale(1.05);
+}
+
+.university-type-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--gold-color);
+    color: #fff !important;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.university-card-body {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.university-logo-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #eee;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+
+.university-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.university-card-body h4 {
+    color: var(--primary-blue-color) !important;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.university-location {
+    color: #777 !important;
+    font-size: 13px;
+    margin: 0;
+}
+
+.university-location i {
+    color: var(--gold-color) !important;
+}
+
+.university-desc {
+    color: #555 !important;
+    font-size: 13.5px;
+    line-height: 1.6;
+    flex: 1;
+    margin: 0;
+}
+
+.university-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+}
+
+.naac-badge {
+    background: var(--primary-blue-color);
+    color: #fff !important;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+
+/* ── Study Destinations Section ────────────────────────────────── */
+
+.study-destinations-section {
+    background: var(--light-grey);
+    padding: 70px 0;
+}
+
+.study-destinations-section .section-heading h2 {
+    color: var(--primary-blue-color) !important;
+}
+
+.study-destinations-section .section-subtitle {
+    color: #666 !important;
+    font-size: 1rem;
+    margin-top: 6px;
+}
+
+/* Search bar */
+.destinations-search-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.destinations-search-box {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    align-items: center;
+}
+
+.destinations-search-box .search-icon {
+    position: absolute;
+    left: 16px;
+    color: #999 !important;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: none;
+}
+
+.university-search-input {
+    width: 100%;
+    padding: 14px 48px 14px 44px;
+    border: 2px solid var(--gold-color);
+    border-radius: 40px;
+    font-size: 0.97rem;
+    color: #333 !important;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 4px 16px rgba(15,53,122,0.07);
+}
+
+.university-search-input:focus {
+    border-color: var(--primary-blue-color);
+    box-shadow: 0 4px 20px rgba(15,53,122,0.15);
+}
+
+.university-search-input::placeholder {
+    color: var(--gold-color) !important;
+}
+.selected_Country_Title em{
+    color: var(--primary-blue-color);
+}
+.search-clear-btn {
+    position: absolute;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:var(--gold-color);
+    border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    color: #555 !important;
+    font-size: 0.75rem;
+    padding: 0;
+}
+
+.search-clear-btn:hover {
+    background: #ddd;
+}
+
+/* Countries grid */
+.countries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 24px;
+    justify-content: center;
+}
+
+.country-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 30px 20px 24px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(15,53,122,0.07);
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.country-card:hover {
+    border-color: var(--primary-blue-color);
+    box-shadow: 0 8px 30px rgba(15,53,122,0.15);
+    transform: translateY(-4px);
+}
+
+.country-flag {
+    line-height: 1;
+    transition: none;
+    color: var(--gold-color);
+    height:48px;
+    width:48px;
+}
+
+.country-name {
+    color: var(--primary-blue-color) !important;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.country-tagline {
+    color: #777 !important;
+    font-size: 0.8rem;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.country-uni-count {
+    display: inline-block;
+    background: var(--gold-color);
+    color: #fff !important;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-top: 6px;
+}
+
+.country-card-arrow {
+    margin-top: 10px;
+    color: var(--primary-blue-color) !important;
+    font-size: 1.4rem;
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.country-card:hover .country-card-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+}
+.country-card-arrow i {
+    color: var(--primary-blue-color) !important;
+}
+/* Universities view */
+.universities-view {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.universities-view-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 0 0 20px 0;
+}
+
+.universities-view-header h3 {
+    color: var(--primary-blue-color) !important;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.back-to-countries-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary-blue-color);
+    color: #fff !important;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.back-to-countries-btn:hover {
+    opacity: 0.85;
+}
+.costom-width-150px{
+    width: 150px;
+}
+
+.universities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+}
+
+.university-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(15,53,122,0.07);
+    border: 2px solid transparent;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.university-card:hover {
+    border-color: var(--primary-blue-color);
+    box-shadow: 0 8px 28px rgba(15,53,122,0.13);
+    transform: translateY(-3px);
+}
+
+.university-card-body {
+    padding: 22px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.uni-name {
+    color: var(--primary-blue-color) !important;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.35;
+}
+
+.university-location {
+    color: #777 !important;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.university-location i {
+    color: var(--gold-color) !important;
+}
+
+.university-desc {
+    color: #555 !important;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 16px;
+}
+
+.university-card-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.uni-type-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    color: #fff !important;
+}
+
+.uni-type-badge.govt {
+    background: var(--primary-blue-color);
+}
+
+.uni-type-badge.pvt {
+    background: var(--gold-color);
+}
+
+.no-results-msg {
+    text-align: center;
+    color: var(--gold-color) !important;
+    font-size: 2rem;
+    padding: 30px 0;
+    font-weight: 600;
+}
+.selected_Country_Title{
+    display:flex;
+    gap:10px;
+
+/* Responsive */
+@media (max-width: 576px) {
+    .countries-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    .universities-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .universities-view-header h3 {
+        font-size: 1.2rem;
+    }
+}

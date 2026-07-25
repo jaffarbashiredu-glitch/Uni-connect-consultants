@@ -41,6 +41,9 @@
 
         </li>
         
+        <li class="nav-item costom-width-150px">
+          <a class="nav-link" data-scroll="study-destinations" href="javascript:void(0)">Study Destinations</a>
+        </li>
         <li class="nav-item">
          <a class="nav-link" data-scroll="footer" href="javascript:void(0)">Contact Us</a>
         </li>
@@ -60,7 +63,7 @@
 <!-- Content and Apply Button Starts Here -->
 	<section class="tagline-apply-button">
 		<h3>Your Gateway to Global <br>
-	Medical Education</h3>
+	 Education</h3>
 	<h6>Dreams to Destination</h6>
 	<div class="apply-button">
 		<a href="javascript:void(0)" data-scroll="about-us-data">
@@ -98,17 +101,11 @@
                 <h2>Your Trusted Partner for Global Education</h2>
 
                 <p>
-                    At Uni Connect Consultants, we help students achieve their
-                    dream of studying abroad by providing expert guidance,
-                    university selection support, admission assistance, and visa
-                    counseling.
-                </p>
-
-                <p>
-                    Our mission is to make international education accessible,
-                    transparent, and stress-free. From choosing the right
-                    university to boarding your flight, we stand beside you at
-                    every step of your journey.
+                   At Uni Connect Consultants, your trusted partner for global education, we help students achieve their dream of studying in India and abroad. Our mission is to make international education accessible, transparent, and completely stress-free. Through expert guidance, university selection support, comprehensive admission assistance, and visa counseling, we are committed to turning your academic aspirations into reality.
+We understand that making the decision to pursue higher education is a major life milestone, which is why we stand beside you at every single step of your journey. From the moment you begin choosing the right university to the day you board your flight, our dedicated team of counseling experts is here to provide personalized support tailored to your unique academic and career goals.
+</p>
+<p>
+To ensure you are completely confident before making a final decision, we go beyond standard counseling. We organize exclusive virtual meetings that connect you directly with the admission departments of your prospective universities. Furthermore, to help you fully grasp the technicalities and day-to-day expectations of your chosen program, we arrange direct consultations with course specialists. This hands-on approach ensures you have total clarity on exactly what your educational future looks like before you take the leap.
                 </p>
 
                 <div class="about-stats">
@@ -237,6 +234,19 @@
 
 
 
+<!-- <section class="universities-section" id="universities-section">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Our Partner Universities</h2>
+            <p>Explore top universities we collaborate with across the globe.</p>
+        </div>
+        <div class="universities-grid" id="oldUniversitiesGrid">
+           
+        </div>
+
+    </div>
+</section> -->
+
 <section class="gallery-section">
     <div class="container">
 
@@ -306,6 +316,51 @@
                 &#10095;
             </button>
 
+        </div>
+
+    </div>
+</section>
+
+<!-- Study Destinations Section -->
+<section class="study-destinations-section" id="study-destinations">
+    <div class="container">
+
+        <div class="section-heading">
+            <span class="section-tag">Explore the World</span>
+            <h2>Study Destinations</h2>
+            <p class="section-subtitle">Choose a country to explore top medical universities we partner with</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="destinations-search-wrapper">
+            <div class="destinations-search-box">
+                <i class="bi bi-search search-icon"></i>
+                <input
+                    type="text"
+                    id="universitySearchInput"
+                    class="university-search-input"
+                    placeholder="Search for a university..."
+                    autocomplete="off"
+                >
+                <button class="search-clear-btn" id="searchClearBtn" style="display:none">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Countries Grid (default view) -->
+        <div id="countriesGrid" class="countries-grid"></div>
+
+        <!-- Universities List (shown after country click or search) -->
+        <div id="universitiesView" class="universities-view" style="display:none">
+            <div class="universities-view-header">
+                <button class="back-to-countries-btn" id="backToCountriesBtn">
+                    <i class="bi bi-arrow-left"></i> All Countries
+                </button>
+                <h3 id="selectedCountryTitle" class="selected_Country_Title"></h3>
+            </div>
+            <div id="universitiesGrid" class="universities-grid"></div>
+            <p id="noResultsMsg" class="no-results-msg" style="display:none">No universities found matching your search.</p>
         </div>
 
     </div>
