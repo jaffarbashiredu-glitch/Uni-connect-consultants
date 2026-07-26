@@ -122,7 +122,7 @@ app.get("/api/universities/:id", (req, res) => {
     res.json(university);
 
 });
-app.get("/api/countries", (req, res) => {
+app.get("/api/countriesList", (req, res) => {
 
     const filePath = path.join(__dirname, "data", "countries.json");
 

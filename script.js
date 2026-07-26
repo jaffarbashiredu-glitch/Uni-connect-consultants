@@ -121,13 +121,14 @@ function renderTestimonials() {
 
 async function loadCountries() {
 
-    const response = await fetch("/api/countries");
+    const response = await fetch("/api/countriesList");
 
     const countries = await response.json();
 
     const select = document.getElementById("country");
 
     countries.forEach(country => {
+        console.log("country",country)
 
         const option = document.createElement("option");
 
