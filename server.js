@@ -6,6 +6,7 @@ const app = express();
 
 // Serve current folder
 app.use(express.static(__dirname));
+app.use(express.json());
 
 // Serve images
 app.use("/images", express.static(path.join(__dirname, "images")));
@@ -121,6 +122,90 @@ app.get("/api/universities/:id", (req, res) => {
     res.json(university);
 
 });
+app.get("/api/countries", (req, res) => {
+
+    const filePath = path.join(__dirname, "data", "countries.json");
+
+    const countries = JSON.parse(fs.readFileSync(filePath));
+
+    res.json(countries);
+
+});
+
+
+app.get("/api/courses", (req, res) => {
+
+    const filePath = path.join(__dirname, "data", "courses.json");
+
+    const courses = JSON.parse(fs.readFileSync(filePath));
+
+    res.json(courses);
+
+});
+
+
+app.post("/api/consultation", (req, res) => {
+
+    const { fullName, phone, country, course } = req.body;
+
+    if (!fullName || !phone || !country || !course) {
+        return res.status(400).json({
+            success: false,
+            message: "All fields are required."
+        });
+    }
+
+    const filePath = path.join(__dirname, "data", "consultations.json");
+
+    let consultations = [];
+
+    if (fs.existsSync(filePath)) {
+        consultations = JSON.parse(fs.readFileSync(filePath));
+    }
+
+    consultations.push({
+        id: Date.now(),
+        fullName,
+        phone,
+        country,
+        course,
+        createdAt: new Date()
+    });
+
+    fs.writeFileSync(
+        filePath,
+        JSON.stringify(consultations, null, 2)
+    );
+
+    res.json({
+        success: true,
+        message: "Consultation submitted successfully."
+    });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.use((req, res) => {
     res.status(404).send("Page not found");

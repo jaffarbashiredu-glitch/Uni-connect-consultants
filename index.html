@@ -128,11 +128,60 @@ To ensure you are completely confident before making a final decision, we go bey
         </div>
 
         <!-- Right Side Image -->
-        	<div class="col-lg-6">
+
+
+
+
+        <form id="consultationForm" novalidate>
+
+    <div class="form-group">
+        <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            placeholder="Full Name"
+            maxlength="50"
+            autocomplete="name"
+        >
+        <small class="error" id="fullNameError"></small>
+    </div>
+
+    <div class="form-group">
+        <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="Phone Number"
+            maxlength="15"
+            autocomplete="tel"
+        >
+        <small class="error" id="phoneError"></small>
+    </div>
+
+    <div class="form-group">
+        <select id="country" name="country">
+            <option value="">Select Country</option>
+        </select>
+        <small class="error" id="countryError"></small>
+    </div>
+
+    <div class="form-group">
+        <select id="course" name="course">
+            <option value="">Select Course</option>
+        </select>
+        <small class="error" id="courseError"></small>
+    </div>
+
+    <button type="submit" id="submitBtn">
+        Book Free Consultation
+    </button>
+
+</form>
+        	<!-- <div class="col-lg-6">
                 <div id="aboutCarousel" class="carousel slide about-carousel" data-bs-ride="carousel">
 
                 <div class="carousel-inner" id="carouselImages">
-                    <!-- Images will be added here dynamically -->
+                    
                 </div>
 
                 <button class="carousel-control-prev" type="button" data-bs-target="#aboutCarousel" data-bs-slide="prev">
@@ -144,7 +193,7 @@ To ensure you are completely confident before making a final decision, we go bey
                 </button>
 
                </div>
-           </div>
+           </div> -->
 
     </div>
 </section>
@@ -227,6 +276,8 @@ To ensure you are completely confident before making a final decision, we go bey
 
     </div>
 </section>
+
+
 
 
 

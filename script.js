@@ -27,7 +27,7 @@ const testimonials = [
 
 
 
-async function loadCarouselImages() {
+/* async function loadCarouselImages() {
     const response = await fetch("/api/carousel_images");
     const images = await response.json();
 
@@ -51,7 +51,7 @@ async function loadCarouselImages() {
     });
 }
 
-loadCarouselImages();
+loadCarouselImages(); */
 
 fetch("/api/testimonial_images")
   .then(res => res.json())
@@ -118,6 +118,56 @@ function renderTestimonials() {
     testimonialTrack.innerHTML = html;
     testimonialCarousel.move();
 }
+
+async function loadCountries() {
+
+    const response = await fetch("/api/countries");
+
+    const countries = await response.json();
+
+    const select = document.getElementById("country");
+
+    countries.forEach(country => {
+
+        const option = document.createElement("option");
+
+        option.value = country;
+
+        option.textContent = country;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+loadCountries();
+
+
+
+async function loadCourses() {
+
+    const response = await fetch("/api/courses");
+
+    const courses = await response.json();
+
+    const select = document.getElementById("course");
+
+    courses.forEach(course => {
+
+        const option = document.createElement("option");
+
+        option.value = course;
+
+        option.textContent = course;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+loadCourses();
 
 
 
@@ -441,3 +491,237 @@ async function initStudyDestinations() {
 }
 
 initStudyDestinations();
+
+
+
+
+
+
+
+
+//Form Js starts form here
+
+const form = document.getElementById("consultationForm");
+
+const fullName = document.getElementById("fullName");
+const phone = document.getElementById("phone");
+const country = document.getElementById("country");
+const course = document.getElementById("course");
+
+function showError(input, message){
+
+    input.classList.remove("input-success");
+    input.classList.add("input-error");
+
+    document.getElementById(input.id + "Error").innerText = message;
+
+}
+
+function showSuccess(input){
+
+    input.classList.remove("input-error");
+    input.classList.add("input-success");
+
+    document.getElementById(input.id + "Error").innerText = "";
+
+}
+
+function validateName(){
+
+    const value = fullName.value.trim();
+
+    if(value===""){
+
+        showError(fullName,"Full name is required");
+
+        return false;
+
+    }
+
+    if(value.length < 3){
+
+        showError(fullName,"Minimum 3 characters required");
+
+        return false;
+
+    }
+
+    if(!/^[A-Za-z ]+$/.test(value)){
+
+        showError(fullName,"Only alphabets are allowed");
+
+        return false;
+
+    }
+
+    showSuccess(fullName);
+
+    return true;
+
+}
+
+function validatePhone(){
+
+    const value = phone.value.trim();
+
+    if(value===""){
+
+        showError(phone,"Phone number is required");
+
+        return false;
+
+    }
+
+    if(!/^[0-9]{10,15}$/.test(value)){
+
+        showError(phone,"Enter a valid phone number");
+
+        return false;
+
+    }
+
+    showSuccess(phone);
+
+    return true;
+
+}
+
+function validateCountry(){
+
+    if(country.value===""){
+
+        showError(country,"Please select a country");
+
+        return false;
+
+    }
+
+    showSuccess(country);
+
+    return true;
+
+}
+
+function validateCourse(){
+
+    if(course.value===""){
+
+        showError(course,"Please select a course");
+
+        return false;
+
+    }
+
+    showSuccess(course);
+
+    return true;
+
+}
+
+fullName.addEventListener("input",validateName);
+
+phone.addEventListener("input",validatePhone);
+
+country.addEventListener("change",validateCountry);
+
+course.addEventListener("change",validateCourse);
+
+form.addEventListener("submit",async function(e){
+
+    e.preventDefault();
+
+    const isValid =
+        validateName() &
+        validatePhone() &
+        validateCountry() &
+        validateCourse();
+
+    if(!isValid)
+        return;
+
+    const submitBtn = document.getElementById("submitBtn");
+
+    submitBtn.disabled = true;
+
+    submitBtn.innerText = "Submitting...";
+
+    const consultation = {
+
+        fullName:fullName.value.trim(),
+
+        phone:phone.value.trim(),
+
+        country:country.value,
+
+        course:course.value
+
+    };
+
+    console.log(consultation);
+
+    // const response = await fetch("/api/consultation",{
+    //     method:"POST",
+    //     headers:{
+    //         "Content-Type":"application/json"
+    //     },
+    //     body:JSON.stringify(consultation)
+    // });
+
+    // const result = await response.json();
+
+    // alert("Consultation submitted successfully.");
+
+    
+
+    document
+        .querySelectorAll(".input-success")
+        .forEach(input=>input.classList.remove("input-success"));
+
+    submitBtn.disabled = false;
+
+    submitBtn.innerText = "Book Free Consultation";
+
+});
+
+
+
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const consultation = {
+        fullName: document.getElementById("fullName").value,
+        phone: document.getElementById("phone").value,
+        country: document.getElementById("country").value,
+        course: document.getElementById("course").value
+    };
+
+    try {
+
+        const response = await fetch("/api/consultation", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(consultation)
+
+        });
+
+        const result = await response.json();
+
+        
+        console.log("From Submitted successfully")
+        form.reset();
+
+    }
+    catch (err) {
+
+        console.log("Something went wrong")
+
+    }
+
+});
