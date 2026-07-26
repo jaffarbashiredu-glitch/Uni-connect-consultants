@@ -1,7 +1,8 @@
 const carouselContainer = document.getElementById("carouselImages");
 let galleryImages = [];
 const track = document.getElementById("galleryTrack");
-const testimonials = [
+let testimonials = []
+const testimonialsss = [
     {
         name: "Sarah Khan",
         country: "MBBS Student, Uzbekistan",
@@ -53,17 +54,6 @@ const testimonials = [
 
 loadCarouselImages(); */
 
-fetch("/api/testimonial_images")
-  .then(res => res.json())
-    .then(images => {
-        testimonials.forEach((student, index) => {
-            if (images[index]) {
-                student.image = images[index];
-            }
-        });
-
-        renderTestimonials();
-    })
 
 async function loadGalleryImages() {
 
@@ -167,11 +157,105 @@ async function loadCourses() {
     });
 
 }
-
 loadCourses();
 
 
+async function loadTestimonials() {
 
+    const response = await fetch("/api/testimonials");
+
+     testimonials = await response.json();
+     console.log("testimonials",testimonials)
+
+    fetch("/api/testimonial_images")
+  .then(res => res.json())
+    .then(images => {
+        testimonials.forEach((student, index) => {
+            if (images[index]) {
+                student.image = images[index];
+            }
+        });
+
+        renderTestimonials();
+    })
+
+}
+loadTestimonials()
+
+
+const testimonialForm = document.getElementById("testimonialForm");
+testimonialForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const country = document.getElementById("fromCountry").value.trim();
+    const rating = document.getElementById("rating").value;
+    const review = document.getElementById("review").value.trim();
+
+    // Validation
+    if (!name) {
+        return;
+    }
+
+    if (!country) {
+        return;
+    }
+
+    if (!rating) {
+        return;
+    }
+
+    if (!review) {
+        return;
+    }
+
+    const testimonial = {
+        name,
+        country,
+        rating: Number(rating),
+        review
+    };
+
+    const submitBtn = testimonialForm.querySelector("button");
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    try {
+
+        const response = await fetch("/api/testimonials", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(testimonial)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || "Something went wrong.");
+        }
+        testimonialForm.reset();
+
+        // If you have a function that reloads testimonials
+        // await loadTestimonials();
+
+    } catch (error) {
+
+        console.error(error);
+
+    } finally {
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Review";
+        const modal = bootstrap.Modal.getInstance(
+        document.getElementById("testimonialModal"));
+        modal.hide();
+        loadTestimonials()
+
+    }
+
+});
 
 
 

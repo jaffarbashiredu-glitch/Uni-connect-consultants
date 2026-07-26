@@ -1394,6 +1394,156 @@ img{
 }
 
 
+/* ==========================
+   Testimonial Form
+========================== */
+
+#testimonialForm {
+    max-width: 550px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+#testimonialForm input,
+#testimonialForm select,
+#testimonialForm textarea {
+
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+
+    font-size: 15px;
+    font-family: inherit;
+
+    border: 1px solid #d6d6d6;
+    border-radius: 8px;
+
+    background: #fff;
+    color: #333;
+
+    outline: none;
+    box-sizing: border-box;
+
+    transition: all .25s ease;
+
+}
+
+/* Placeholder */
+
+#testimonialForm input::placeholder,
+#testimonialForm textarea::placeholder {
+    color: #999;
+}
+
+/* Select text */
+
+#testimonialForm select {
+    color: #333;
+    cursor: pointer;
+}
+
+/* Dropdown options */
+
+#testimonialForm option {
+    color: #333;
+    background: #fff;
+}
+
+/* Textarea */
+
+#testimonialForm textarea {
+    min-height: 140px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+/* Focus */
+
+#testimonialForm input:focus,
+#testimonialForm select:focus,
+#testimonialForm textarea:focus {
+
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 4px rgba(13,110,253,.12);
+
+}
+
+/* Button */
+
+#testimonialForm button {
+
+    width: 100%;
+    padding: 15px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: var(--gold-color);
+    color: #fff;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all .3s ease;
+
+}
+
+/* Hover */
+
+#testimonialForm button:hover {
+
+    background: var(--gold-color);
+    transform: translateY(-2px);
+
+}
+
+/* Active */
+
+#testimonialForm button:active {
+
+    transform: translateY(0);
+
+}
+
+/* Disabled */
+
+#testimonialForm button:disabled {
+
+    background: #b5b5b5;
+    cursor: not-allowed;
+    transform: none;
+
+}
+.flex-center-items{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.submitBtnGolden{
+    border: none;
+	background: var(--gold-color);
+	color: var(--white-color);
+	padding: 8px 25px;
+	border-radius: 20px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    #testimonialForm {
+
+        padding: 20px;
+        margin: 20px;
+
+    }
+
+}
+
+
 /* Responsive */
 @media (max-width: 576px) {
     .countries-grid {

@@ -372,8 +372,126 @@ To ensure you are completely confident before making a final decision, we go bey
             </button>
 
         </div>
+       <div class="flex-center-items">
+         <button
+        class="submitBtnGolden"
+        data-bs-toggle="modal"
+        data-bs-target="#testimonialModal">
+        Rate Us
+     </button>
+       </div>
 
     </div>
+
+    
+<div class="modal fade"
+     id="testimonialModal"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Share Your Experience
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form id="testimonialForm">
+
+                    <input
+                        class="form-control mb-3"
+                        type="text"
+                        id="name"
+                        placeholder="Full Name">
+
+                    <input
+                        class="form-control mb-3"
+                        type="text"
+                        id="fromCountry"
+                        placeholder="Country / Course">
+
+                    <select
+                        class="form-select mb-3"
+                        id="rating">
+
+                        <option value="">Rating</option>
+                        <option value="5">⭐⭐⭐⭐⭐</option>
+                        <option value="4">⭐⭐⭐⭐</option>
+                        <option value="3">⭐⭐⭐</option>
+                        <option value="2">⭐⭐</option>
+                        <option value="1">⭐</option>
+
+                    </select>
+
+                    <textarea
+                        class="form-control mb-3"
+                        id="review"
+                        rows="4"
+                        placeholder="Write your review"></textarea>
+
+                    <button
+                        class="btn btn-primary w-100"
+                        type="submit">
+
+                        Submit Review
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- <form id="testimonialForm">
+
+    <input
+        type="text"
+        id="name"
+        placeholder="Full Name"
+    >
+
+    <input
+        type="text"
+        id="fromCountry"
+        placeholder="Country / Course"
+    >
+
+    <select id="rating">
+        <option value="">Rating</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="1">⭐</option>
+    </select>
+
+    <textarea
+        id="review"
+        placeholder="Write your review"
+    ></textarea>
+
+   <button type="submit" id="submitTestimonialBtn">
+    Submit Review
+</button>
+
+</form> -->
 </section>
 
 <!-- Study Destinations Section -->

@@ -143,6 +143,19 @@ app.get("/api/courses", (req, res) => {
 
 });
 
+app.get("/api/testimonials", (req, res) => {
+
+    const filePath = path.join(__dirname, "data", "testimonials.json");
+
+    const courses = JSON.parse(fs.readFileSync(filePath));
+
+    res.json(courses);
+
+});
+
+
+
+
 
 app.post("/api/consultation", (req, res) => {
 
@@ -184,6 +197,46 @@ app.post("/api/consultation", (req, res) => {
 
 });
 
+app.post("/api/testimonials", (req, res) => {
+
+    const { name, country, rating, review } = req.body;
+
+    if (!name || !country || !rating || !review) {
+        return res.status(400).json({
+            success: false,
+            message: "All fields are required."
+        });
+    }
+
+    const filePath = path.join(
+        __dirname,
+        "data",
+        "testimonials.json"
+    );
+
+    const testimonials = JSON.parse(
+        fs.readFileSync(filePath)
+    );
+
+    testimonials.unshift({
+        name,
+        country,
+        image: "images/testimonialImages/default-user.png",
+        rating: Number(rating),
+        review
+
+    });
+
+    fs.writeFileSync(
+        filePath,
+        JSON.stringify(testimonials, null, 4)
+    );
+
+    res.json({
+        success: true
+    });
+
+});
 
 
 
